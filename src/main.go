@@ -1,11 +1,9 @@
 package main
 
-import "fileMis/src/utils"
+import (
+	"fileMis/src/system"
+)
 
 func main() {
-	// userData := model.UserData
-	// err := model.RfData("user", "username", userData)
-	// fmt.Println(err)
-	
-	utils.SetConfigData()
+	system.Run()
 }

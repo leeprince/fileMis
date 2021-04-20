@@ -1,4 +1,7 @@
 {
-    "BasePath": "b",
-    "DatePath": "b"
+    "BaseRoot": "/",
+    "ModelData": {
+        "Path": "./src/data/",
+        "Subfix": ".sql"
+    }
 }

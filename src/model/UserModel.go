@@ -1,6 +1,9 @@
 package model
 
-import "strconv"
+import (
+	"fmt"
+	"strconv"
+)
 
 type UserModel struct {
 	username string
@@ -9,7 +12,11 @@ type UserModel struct {
 	sex string
 }
 
-var UserData map[string]Model
+var (
+	userModelTable string = "user" // 用户信息
+	userData map[string]Model // 用户信息
+	userDataKey string = "username" // 存储用户信息的主键
+)
 
 func NewUserModel() *UserModel {
 	return &UserModel{}
@@ -40,10 +47,28 @@ func (u *UserModel) GetAge() int {
 func (u *UserModel) GetSex() string {
 	return u.sex
 }
+func (u *UserModel) All() []*UserModel  {
+	var users []*UserModel = make([]*UserModel, 0)
+	for _, user := range userData {
+		users = append(users, user.(*UserModel))
+	}
+	return users
+}
 
 // 格式化输出数据信息
 func (u *UserModel) ToString() string {
 	return u.username + "," + u.password + "," + strconv.Itoa(u.age) + "," + u.sex
+}
+
+func GetUserByUsername(username string) *UserModel {
+	fmt.Println("GetUser by username:", username)
+	fmt.Printf("userData 类型：%T 值：%v \n", userData[username], userData[username])
+	
+	data, ok := userData[username]
+	if !ok {
+		return nil
+	}
+	return data.(*UserModel)
 }
 
 

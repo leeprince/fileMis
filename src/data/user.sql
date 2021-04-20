@@ -1,2 +1,2 @@
 username,password,sex,age
-prince01,prince011,男,18
+prince,prince,男,18
