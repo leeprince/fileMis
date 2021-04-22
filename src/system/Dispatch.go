@@ -18,22 +18,25 @@ func dispatch() (bool, error) {
 	if ok != true {
 		fmt.Println("无法根据指定标识查找控制器", args[0])
 	}
+	
 	// 2. 执行方法
 	// fmt.Printf("controller.Controllers: %v ; ctl reflect.TypeOf:%s ; ctl reflect.ValueOf:%s \n", controller.Controllers, reflect.TypeOf(ctl), reflect.ValueOf(ctl))
 	methodName := reflect.ValueOf(ctl).MethodByName(args[1])
 	// fmt.Printf("controller.Controllers.methodName: %v ;args[1]: %s \n", reflect.TypeOf(methodName), args[1])
 	methodName.Call([]reflect.Value{})
+	
 	// 3. 获取下一步需要操作的方法
 	view, ok := controller.Views[controller.View]
 	if !ok {
 		fmt.Println()
 		return false, errors.New("无法根据指定标识查找到视图 > controller.View: " + controller.View)
 	}
-	// 4. 处理输出格式
-	fmethod, fdesc := controller.ViewsFormate(view)
 	
+	// 4. 输出下一步展示的内容
+	fmethod, fdesc := controller.ViewsFormate(view)
 	// 输出可以进行下一步操作的信息
 	utils.CReturnNextOperDesc(fdesc)
+	
 	// 5. 匹配输入的操作指令，分发下一步执行的方法
 	for {
 		inCommand := utils.CRead()

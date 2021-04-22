@@ -11,6 +11,7 @@ var (
 	Views       map[string][][3]string
 	Controllers map[string]interface{}
 	authService *service.AuthService
+	userService *service.UserService
 )
 
 // 注册的控制器标识

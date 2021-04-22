@@ -1,2 +1,2 @@
-username,password,sex,age
-prince,prince,男,18
+username,password,age,sex
+prince,prince,18,男

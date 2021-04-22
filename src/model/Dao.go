@@ -122,3 +122,51 @@ func toTypeValue(modelV reflect.Value, field, value string) interface{} {
 	}
 	return string(value)
 }
+
+// 将数据写入文件
+func fwrite(table string, userData map[string]Model) bool {
+	// 获取到转化的数据内容
+	content := getModelsToString(userData)
+	// 打开文件
+	// 不管是 Unix 还是 Windows，都需要使用 0666
+	filePath := path+table+subfix
+	outfile, outErr := os.OpenFile(filePath, os.O_WRONLY|os.O_CREATE, 0666)
+	if outErr != nil {
+		fmt.Println("文件找不到. file:", filePath)
+		return false
+	}
+	defer outfile.Close()
+
+	// 创建写入的缓冲区
+	outbufwri := bufio.NewWriter(outfile)
+	// 写入内容
+	outbufwri.WriteString(content + "\n")
+	// 刷新缓冲区保存内容
+	outbufwri.Flush()
+	
+	return true
+}
+
+// 把模型数据源转化为字符串
+func getModelsToString(models map[string]Model) string {
+	// 记录字段内容
+	var fields string
+	// 循环处理数据
+	var content string
+	for _, model := range models {
+		if fields == "" {
+			// 利用反射获取字段内容
+			rmodel := reflect.ValueOf(model)
+			modelZ := rmodel.Elem() // [<推荐] // 另外一种写法 modelZ := reflect.Zero(rmodel.Type().Elem())
+			// fmt.Printf("modelZ 类型：%T 值：%s", modelZ, modelZ)
+			for i := 0; i < modelZ.NumField(); i++ {
+				fields = fields + modelZ.Type().Field(i).Name + ","
+			}
+			fields = strings.TrimSuffix(fields, ",")
+		}
+		// 记录数据内容
+		content = content + model.ToString() + "\n"
+	}
+	// 最终内容
+	return fields + "\n" + strings.TrimSuffix(content, "\n")
+}

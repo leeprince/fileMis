@@ -71,6 +71,12 @@ func GetUserByUsername(username string) *UserModel {
 	return data.(*UserModel)
 }
 
+func (u *UserModel) Save() bool {
+	// 先在内存里面保存一份
+	userData[u.username] = u
+	return fwrite(userModelTable, userData)
+}
+
 
 
 
