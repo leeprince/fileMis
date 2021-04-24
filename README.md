@@ -19,3 +19,6 @@ username,password,sex,age
 prince,123456,男,18
 
 ```
+
+## 运行
+项目根目录下执行：go run src/main.go
