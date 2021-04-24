@@ -1,7 +1,6 @@
 package model
 
 import (
-	"fmt"
 	"strconv"
 )
 
@@ -61,8 +60,8 @@ func (u *UserModel) ToString() string {
 }
 
 func GetUserByUsername(username string) *UserModel {
-	fmt.Println("GetUser by username:", username)
-	fmt.Printf("userData 类型：%T 值：%v \n", userData[username], userData[username])
+	// fmt.Println("GetUser by username:", username)
+	// fmt.Printf("userData 类型：%T 值：%v \n", userData[username], userData[username])
 	
 	data, ok := userData[username]
 	if !ok {

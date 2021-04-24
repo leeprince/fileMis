@@ -15,8 +15,8 @@ func (this *AuthController) Login() bool {
 	fmt.Print("输入您的密码：")
 	password := utils.CRead()
 	
-	fmt.Println("用户名：", userName)
-	fmt.Println("密码：", password)
+	// fmt.Println("用户名：", userName)
+	// fmt.Println("密码：", password)
 	
 	if bool, err := authService.Login(userName, password); ! bool {
 		fmt.Println("登录失败:", err)
